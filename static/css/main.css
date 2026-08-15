@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'Chomsky'; /*a name to be used later*/
-  src: url('https://mangeshm.xyz/css/Chomsky.otf')format("opentype");
+  src: url('https://mng.sh/Chomsky.otf')format("opentype");
   font-weight: 400;
   font-style: normal; /*URL to font*/
 }
@@ -172,7 +172,6 @@ h6 {
   color: #333;
   font-weight: 500;
   line-height: 1.3em;
-  margin: 30px 0 20px 0;
 }
 
 h1 {
@@ -270,12 +269,21 @@ li {
   filter: grayscale(100%);
 }
 
-.articles {
-  display: grid;
-  grid-column-gap: 32px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1.5fr));
-  grid-template-rows: masonry;
-  justify-content: space-around;
+/* Masonry via CSS multi-column — works everywhere, naturally responsive */
+.posts {
+  column-count: 3;
+  column-gap: 20px;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.posts > * {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  display: block;
+  width: 100%;
+  margin: 0 0 20px 0;
 }
 
 .post  .markdown p {
@@ -325,17 +333,28 @@ em {
 }
 
 .header .avatar img {
+  animation: rotation 2.5s infinite linear;
   width: 180px;
   height: 180px;
   border-radius: 100%;
   padding-top: 1em;
 }
 
+@keyframes rotation {
+from {
+  transform: rotate(0deg); /* Starting point: no rotation */
+}
+to {
+  transform: rotate(360deg); /* Ending point: full 360-degree rotation */
+}
+}
+
 .header .site-title {
   font-family: "Chomsky";
-  font-size: 5rem;
+  font-size: 6rem;
   margin: 0;
   text-align: center;
+  letter-spacing: -1.5px
 }
 
 .header .site-description {
@@ -364,7 +383,7 @@ em {
   border-top: 1px solid #eee;
   padding-top: 15px;
   display: flex;
-  justify-content: center
+  justify-content: center;
 }
 
 .header nav ul,
@@ -377,6 +396,9 @@ em {
   display: inline-block;
   list-style: none;
   margin: 0 30px 0 0;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  font-weight: 600;
 }
 
 .header .site-description nav {
@@ -418,9 +440,6 @@ em {
 .markdown {
   max-width: auto;
   padding: 10px 20px;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
-  border-left: 1px solid black;
 }
 
 .post-header {
@@ -436,11 +455,15 @@ em {
 .blog-post {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding-bottom: 10px;
   text-align: center;
 }
 
+.post-details {
+  padding: 0 5px;
+  line-height:normal;
+}
 
 .blog-post .matter {
   width: 100%;
@@ -512,19 +535,12 @@ em {
   padding: 0px 6px;
   line-height: 20px;
   margin: auto;
-  padding: 3px;
   color: black !important;
   border: 1px solid black;
 }
 
 .posts {
-  display: grid;
-  grid-column-gap: 20px;
-  grid-auto-flow: dense;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1.5fr));
-  grid-template-rows: masonry;
-  box-sizing: border-box;
-  padding: 10px 0px;
+  column-count: 3;
 }
 
 .section-headers {
@@ -557,7 +573,8 @@ em {
 }
 
 .featured .most-recent .title {
-  font-size: 1.8rem;
+  font-size: 2rem;
+  font-weight: 500;
 }
 
 .meta {
@@ -566,18 +583,22 @@ em {
   align-items: center;
   box-sizing: border-box;
   border-top: 1px solid black;
+  border-bottom: 1px solid black;
 }
 
 .meta .post-type {
-  text-align: center;
+  text-align:-webkit-center;
   width:100%;
   box-sizing: border-box;
   border-left: 1px solid black;
+  justify-content: center;
 }
+
 
 .meta .home-button {
   width: 100%;
 }
+
 .meta a {
   width: max-content;
 }
@@ -711,7 +732,7 @@ em {
     width: 100%;
   }
   .posts {
-    grid-template-columns: 1fr 1fr;
+    column-count: 2;
   }
   .articles {
     display: grid;
@@ -731,14 +752,13 @@ em {
     margin: 0;
   }
   .site-title {
-    font-size: 2rem !important;
+    font-size: 3rem !important;
   }
   .blog-matter .details .title {
     text-align: center;
     font-size: 30px !important;
   }
   .header .site-description {
-    font-size: 1em;
     margin-top: 10px;
     font-size: 0.875em;
     line-height: 1.4em;
@@ -754,14 +774,18 @@ em {
   .post-header .title {
     font-size: 30px !important;
   }
-  .post .title {
-    font-size: 2rem;
-  }
   .blog-post {
     flex-direction: row;
   }
+  .blog-post .title {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+  .blog-post .summary {
+    font-size: 1.2rem;
+  }
   .posts {
-    grid-template-columns: 1fr;
+    column-count: 1;
   }
   .articles {
     display: grid;
